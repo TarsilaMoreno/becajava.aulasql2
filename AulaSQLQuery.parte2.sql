@@ -1,0 +1,46 @@
+USE Aula
+
+CREATE TABLE Professor(
+	Id INT IDENTITY,
+	Nome VARCHAR(50) NOT NULL,
+	CONSTRAINT PK_Id_Professor PRIMARY KEY (Id)
+)
+
+CREATE TABLE Classe(
+	Id INT IDENTITY,
+	Numero INT NOT NULL,
+	Nome VARCHAR(20) NOT NULL,
+	CONSTRAINT PK_Id_Classe PRIMARY KEY (Id)
+)
+
+
+CREATE TABLE Aluno(
+	Id INT IDENTITY,
+	Matricula VARCHAR(10) NOT NULL,
+	Nome VARCHAR(50) NOT NULL,
+	Idade INT,
+	DataNascimento DATE,
+	ClasseId INT,
+	CONSTRAINT PK_Id_Aluno PRIMARY KEY (Id),
+	CONSTRAINT FK_Classe_Id FOREIGN KEY (ClasseId)
+	REFERENCES Classe(Id)
+)
+
+CREATE TABLE Disciplina(
+	Id INT IDENTITY,
+	Nome VARCHAR(50) NOT NULL,
+	ProfessorId INT,
+	CONSTRAINT PK_Disciplina_Id PRIMARY KEY CLUSTERED (Id),
+	CONSTRAINT FK_Professor_Id FOREIGN KEY (ProfessorId)
+	REFERENCES Professor(Id)
+)
+
+CREATE TABLE DisciplinaClasse(
+	Id INT IDENTITY,
+	DisciplinaId INT,
+	ClasseId INT,
+	CONSTRAINT FK_Disciplina_Id FOREIGN KEY (DisciplinaId)
+	REFERENCES Disciplina(Id),
+	CONSTRAINT FK_Disciplina_Classe_Id FOREIGN KEY (ClasseId)
+	REFERENCES Classe(Id)
+)
